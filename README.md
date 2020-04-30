@@ -3,7 +3,7 @@ Converts query string into partial sql code.
 
 # Install
 ```
-go get github.com/devprojx/filterql
+go get github.com/devprojx/go-filterql
 ```
 ## Usage
 
@@ -14,7 +14,7 @@ import (
   "net/http"
   "github.com/labstack/echo/v4"
 
-  "github.com/devprojx/filterql"
+  "github.com/devprojx/go-filterql"
 )
 
 func (h *Handler) FindAllCompanies(ctx echo.Context) error {
