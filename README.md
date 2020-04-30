@@ -12,7 +12,7 @@ Provided the query string "```?name=john doe:eq:and```", the following component
 - **Comparison Operator:** ```:eq```
 - **Logical Operator:** ```:and```
 
-**Note** that each component of the syntax is separated by a colon. The **Logical Operator** is optional, however this will be default to an "AND" operator if more than one filter is provided.
+**Note** that each component of the RHS syntax is separated by a colon. The **Logical Operator** is optional, however this will be default to an "AND" operator if more than one filter is provided.
 
 ### Supported SQL Operators
 
@@ -20,10 +20,10 @@ SQL Comparision Operators   | RHS COLON SYNTAX
 ----------------------------|------------------
 =                           | eq               
 <=                          | lte              
->=                          | gte              
+&gt;=                       | gte              
 <                           | lt               
->                           | gt               
-<>                          | nt           
+&gt;                        | gt               
+<&gt;                       | nt           
 LIKE                        | lk          
 
 
