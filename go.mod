@@ -1,4 +1,4 @@
-module github.com/devprojx/filterql
+module github.com/devprojx/go-filterql
 
 go 1.14
 
