@@ -1,4 +1,5 @@
 
+#go-filterql
 Converts query string into partial sql code using a RHS colon syntax.
 Given a query string "``` ?first_name=John:eq:and&last_name:eq:Doe```"
 it will generate "```first_name = ? AND last_name = ?```".
@@ -9,10 +10,11 @@ Provided the query string "```?name=john doe:eq:and```", the following component
 
 
 - **Field/Column name:** ```name```
+- **Filter/Search value:** ```john doe```
 - **Comparison Operator:** ```:eq```
 - **Logical Operator:** ```:and```
 
-**Note** that each component of the RHS syntax is separated by a colon. The **Logical Operator** is optional, however this will be default to an "AND" operator if more than one filter is provided.
+**Note** that each component of the RHS syntax following the field name is separated by a colon. The **Logical Operator** is optional, however this will be default to an "AND" operator if more than one filter is provided.
 
 ### Supported SQL Operators
 
