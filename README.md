@@ -1,5 +1,6 @@
 
-#go-filterql
+# go-filterql
+
 Converts query string into partial sql code using a RHS colon syntax.
 Given a query string "``` ?first_name=John:eq:and&last_name:eq:Doe```"
 it will generate "```first_name = ? AND last_name = ?```".
