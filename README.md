@@ -44,7 +44,53 @@ go get github.com/devprojx/go-filterql
    
 ## Usage
 
-Example using the [Echo Framework](https://echo.labstack.com/guide) framework
+Example using the built in http library and [go-sql-driver](https://github.com/go-sql-driver/mysql)
+
+```go
+import (
+    "net/http"
+    "encoding/json"
+    "database/sql"
+    _ "github.com/go-sql-driver/mysql"
+)
+
+func (h *Handler) FindAll(w http.ResponseWriter, r *http.Request){
+  //Get query string
+  queryString := r.URL.RawQuery
+
+  //A Map defining the column names and types that are 
+  //filterable on your endpoint
+  possibleFilters := map[string]string{
+    "first_name": "string",
+    "last_name": "string",
+    "age": "int",
+  }
+  
+  //Converts query string to partial parameterized SQL string along with parameters
+  filterQuery, params := filterql.ConvertQueryStrToSql(queryString, possibleFilters)
+
+  users := []*models.User{}
+
+  // Execute the query
+  results, err := h.Db.Query("SELECT first_name, last_name, age FROM Users "+filterQuery, params)
+  if err != nil {
+      panic(err.Error()) // proper error handling instead of panic in your app
+  }
+
+  for results.Next() {
+      var user User
+      err = results.Scan(&user.FirstName, &user.LastName, &user.Age)
+      if err != nil {
+          panic(err.Error()) 
+      }
+      users := append(users, user)
+  }
+
+  json.NewEncoder(w).Encode(users)
+}
+```
+
+Example using the [Echo Framework](https://echo.labstack.com/guide) and [GORM](https://gorm.io/)
 
 ```go
 import (
@@ -56,11 +102,11 @@ import (
   ...
 )
 
-func (h *Handler) FindAllCompanies(ctx echo.Context) error {
+func (h *Handler) FindAllUsers(ctx echo.Context) error {
   //Get query string
   queryString := ctx.QueryString()
   
-  //Map defining the column names and types that are 
+  //A Map defining the column names and types that are 
   //filterable on your endpoint
   possibleFilters := map[string]string{
     "first_name": "string",
@@ -77,3 +123,9 @@ func (h *Handler) FindAllCompanies(ctx echo.Context) error {
   return ctx.JSON(http.StatusOK, users)
 }
 ```
+### Features to implement
+
+&#9744; Sorting
+
+&#9744; Pagination
+
